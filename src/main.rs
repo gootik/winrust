@@ -1,5 +1,6 @@
 extern crate iron;
 extern crate serde_json;
+extern crate redis;
 
 #[macro_use]
 extern crate serde_derive;
@@ -8,8 +9,11 @@ extern crate serde_derive;
 extern crate router;
 
 mod handler;
-use handler::winhandler::WinHandler;
-use handler::statushandler::StatusHandler;
+use handler::win::WinHandler;
+use handler::status::StatusHandler;
+
+mod middleware;
+use middleware::redis::RedisMiddleware;
 
 use iron::prelude::*;
 
@@ -19,7 +23,10 @@ fn main() {
         win: get "/win" => WinHandler::new(),
     );
 
-    Iron::new(router)
+    let mut chain = Chain::new(router);
+    chain.link_before(RedisMiddleware::new());
+
+    Iron::new(chain)
         .http("localhost:7790")
         .unwrap();
 }

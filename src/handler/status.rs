@@ -6,20 +6,21 @@ use iron::Handler;
 
 #[derive(Serialize)]
 pub struct Status {
-    health: String
+    health: String,
 }
 
 pub struct StatusHandler {}
+
 impl StatusHandler {
     pub fn new() -> StatusHandler {
-        StatusHandler{}
+        StatusHandler {}
     }
 }
 
 impl Handler for StatusHandler {
     fn handle(&self, _: &mut Request) -> IronResult<Response> {
         let result = Status {
-            health: String::from("OK")
+            health: String::from("OK"),
         };
 
         let result = serde_json::to_string(&result)
