@@ -1,0 +1,12 @@
+[package]
+name = "winrust"
+version = "0.1.0"
+authors = ["shezarkhani <gootik_2003@hotmail.com>"]
+
+[dependencies]
+iron = "0.5.1"
+router = "0.5.1"
+
+serde = "1.0.9"
+serde_json = "1.0.2"
+serde_derive= "1.0.9"
