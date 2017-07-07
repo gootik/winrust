@@ -1,5 +1,7 @@
 use redis;
 
+use std::ops::Deref;
+
 pub struct CounterService {
 }
 

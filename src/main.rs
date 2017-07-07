@@ -1,4 +1,5 @@
 extern crate iron;
+extern crate params;
 extern crate serde_json;
 extern crate redis;
 extern crate r2d2;
