@@ -1,5 +1,4 @@
 use redis;
-use redis::Commands;
 
 use iron;
 use iron::prelude::*;
@@ -18,8 +17,8 @@ impl WinHandler {
 
 impl Handler for WinHandler {
     fn handle(&self, req: &mut Request) -> IronResult<Response> {
-        let connection = req.get_redis();
-        redis::cmd("SET")
+        let connection = req.redis();
+        redis::cmd("SEsT")
             .arg("winrust")
             .arg("b")
             .query::<String>(connection.deref())

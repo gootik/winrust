@@ -1,6 +1,3 @@
-use redis;
-use redis::Commands;
-
 use r2d2;
 use r2d2_redis::RedisConnectionManager;
 
@@ -41,11 +38,11 @@ impl BeforeMiddleware for RedisMiddleware {
 }
 
 pub trait RedisReqExt {
-    fn get_redis(&self) -> RedisConnection;
+    fn redis(&self) -> RedisConnection;
 }
 
 impl<'a, 'b> RedisReqExt for Request<'a, 'b> {
-    fn get_redis(&self) -> RedisConnection {
+    fn redis(&self) -> RedisConnection {
         let &Value(ref pool) = self.extensions.get::<RedisMiddleware>().unwrap();
 
         return pool.get().unwrap()
