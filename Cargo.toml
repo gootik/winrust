@@ -4,14 +4,17 @@ version = "0.1.0"
 authors = ["Sasan Hezarkhani <gootik_2003@hotmail.com>"]
 
 [dependencies]
+# Web
 iron = "0.5.1"
+params = "0.6.0"
+router = "0.5.1"
 
+# Redis and pooling
 r2d2 = "0.7.2"
 r2d2_redis = "0.6.0"
 redis = "0.8.0"
 
-router = "0.5.1"
-
+# Object serialization
 serde = "1.0.9"
 serde_json = "1.0.2"
 serde_derive= "1.0.9"
