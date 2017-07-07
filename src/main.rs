@@ -17,6 +17,8 @@ use handler::status::StatusHandler;
 mod middleware;
 use middleware::redis::RedisMiddleware;
 
+mod service;
+
 use iron::prelude::*;
 
 fn main() {

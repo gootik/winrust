@@ -1,13 +1,14 @@
-extern crate redis;
-
-use redis::Commands;
+use redis;
 
 pub struct CounterService {
 }
 
 impl CounterService {
-    fn count(&self, key: String, value: String) {
-        self.connection.pfcount(key, value);
+    pub fn count(con: &redis::Connection, key: String, value: String) {
+        redis::cmd("PFADD")
+            .arg::<String>(key)
+            .arg::<String>(value)
+            .query(con)
+            .expect("Could not count.")
     }
-
 }

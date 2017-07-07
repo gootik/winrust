@@ -1,10 +1,9 @@
-use redis;
-
 use iron;
 use iron::prelude::*;
 use iron::Handler;
 
 use middleware::redis::RedisReqExt;
+use service::counter::CounterService;
 
 use std::ops::Deref;
 
@@ -18,11 +17,7 @@ impl WinHandler {
 impl Handler for WinHandler {
     fn handle(&self, req: &mut Request) -> IronResult<Response> {
         let connection = req.redis();
-        redis::cmd("SEsT")
-            .arg("winrust")
-            .arg("b")
-            .query::<String>(connection.deref())
-            .expect("Could not insert into redis.");
+        CounterService::count(connection.deref(), String::from("a"), String::from("b"));
 
         Ok(Response::with((iron::status::Ok, String::from("OK"))))
     }
