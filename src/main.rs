@@ -1,6 +1,8 @@
 extern crate iron;
 extern crate serde_json;
 extern crate redis;
+extern crate r2d2;
+extern crate r2d2_redis;
 
 #[macro_use]
 extern crate serde_derive;

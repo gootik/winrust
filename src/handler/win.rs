@@ -1,6 +1,7 @@
-extern crate iron;
-extern crate redis;
+use redis;
+use redis::Commands;
 
+use iron;
 use iron::prelude::*;
 use iron::Handler;
 
@@ -17,9 +18,12 @@ impl WinHandler {
 
 impl Handler for WinHandler {
     fn handle(&self, req: &mut Request) -> IronResult<Response> {
-        let connection = req.get_redis().deref();
-
-        redis::cmd("INFO").query(connection);
+        let connection = req.get_redis();
+        redis::cmd("SET")
+            .arg("winrust")
+            .arg("b")
+            .query::<String>(connection.deref())
+            .expect("Could not insert into redis.");
 
         Ok(Response::with((iron::status::Ok, String::from("OK"))))
     }

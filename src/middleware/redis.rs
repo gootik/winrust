@@ -1,30 +1,27 @@
-extern crate iron;
-extern crate r2d2;
-extern crate r2d2_redis;
-extern crate redis;
+use redis;
+use redis::Commands;
 
-use self::r2d2_redis::RedisConnectionManager;
+use r2d2;
+use r2d2_redis::RedisConnectionManager;
 
 use iron::{typemap, BeforeMiddleware};
 use iron::prelude::*;
 
-use redis::Commands;
-
+use std::sync::Arc;
 use std::default::Default;
 
 pub type RedisPool = r2d2::Pool<RedisConnectionManager>;
 pub type RedisConnection = r2d2::PooledConnection<RedisConnectionManager>;
 
 pub struct RedisMiddleware {
-    pool: RedisPool,
+    pool: Arc<RedisPool>,
 }
 
 impl RedisMiddleware {
     pub fn new() -> RedisMiddleware {
         let config = Default::default();
         let manager = RedisConnectionManager::new("redis://localhost").unwrap();
-        let pool = r2d2::Pool::new(config, manager).unwrap();
-
+        let pool = Arc::new(r2d2::Pool::new(config, manager).unwrap());
 
         RedisMiddleware {
             pool: pool
@@ -33,7 +30,7 @@ impl RedisMiddleware {
 }
 
 
-pub struct Value(RedisPool);
+pub struct Value(Arc<RedisPool>);
 impl typemap::Key for RedisMiddleware { type Value = Value; }
 
 impl BeforeMiddleware for RedisMiddleware {
