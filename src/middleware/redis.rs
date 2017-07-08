@@ -1,11 +1,11 @@
+use std::sync::Arc;
+use std::default::Default;
+
 use r2d2;
 use r2d2_redis::RedisConnectionManager;
 
 use iron::{typemap, BeforeMiddleware};
 use iron::prelude::*;
-
-use std::sync::Arc;
-use std::default::Default;
 
 pub type RedisPool = r2d2::Pool<RedisConnectionManager>;
 pub type RedisConnection = r2d2::PooledConnection<RedisConnectionManager>;

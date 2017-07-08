@@ -1,8 +1,8 @@
-extern crate serde_json;
-extern crate iron;
-
+use iron;
 use iron::prelude::*;
 use iron::Handler;
+
+use serde_json;
 
 #[derive(Serialize)]
 pub struct Status {

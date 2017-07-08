@@ -1,13 +1,13 @@
+use std::ops::Deref;
+
 use iron;
 use iron::prelude::*;
 use iron::Handler;
 
-use middleware::redis::RedisReqExt;
-use service::counter::CounterService;
-
-use std::ops::Deref;
-
 use params::{Params, Value};
+
+use middleware::redis::RedisReqExt;
+use service::counter;
 
 pub struct WinHandler {}
 impl WinHandler {
@@ -24,7 +24,7 @@ impl Handler for WinHandler {
 
         match map.get("event_id") {
             Some(&Value::String(ref name)) => {
-                CounterService::count(connection.deref(), String::from("event_id"), name.to_owned());
+                counter::count(connection.deref(), String::from("event_id"), name.to_owned());
             }
 
             _ => {}
