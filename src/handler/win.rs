@@ -15,9 +15,10 @@ static COUNT_FIELDS: &'static [&str] = &[
 ];
 
 pub struct WinHandler {}
+
 impl WinHandler {
     pub fn new() -> WinHandler {
-        WinHandler{}
+        WinHandler {}
     }
 }
 

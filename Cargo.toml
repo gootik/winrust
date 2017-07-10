@@ -4,6 +4,10 @@ version = "0.1.0"
 authors = ["Sasan Hezarkhani <gootik_2003@hotmail.com>"]
 
 [dependencies]
+# Config
+config = "0.6.0"
+lazy_static = "0.2.8"
+
 # Web server
 iron = "0.5.1"
 params = "0.6.0"
