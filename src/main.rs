@@ -40,7 +40,7 @@ fn main() {
     let mut chain = Chain::new(router);
     chain.link_before(RedisMiddleware::new());
 
-    let server_path = "localhost:".to_string() + &setting::GLOBAL_SETTINGS.server.port.to_string();
+    let server_path = format!("localhost:{}", setting::GLOBAL_SETTINGS.server.port);
     println!("Started server at {:?}", server_path.clone());
 
     Iron::new(chain)
